@@ -18,6 +18,12 @@ builder.Services.AddCors(options =>
     );
 });
 
+// if using VS Code for back and frontend:
+// "http://localhost:5173"
+// http://localhost:5277
+
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 

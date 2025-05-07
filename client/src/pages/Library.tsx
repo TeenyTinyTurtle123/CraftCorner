@@ -13,7 +13,7 @@ export function Library() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("http://localhost:5277/Test/GetProjects");
+        const res = await fetch("https://localhost:44373/Test/GetAll");
         const json = await res.json();
         setProject(json);
       } catch (err) {
@@ -26,12 +26,11 @@ export function Library() {
 
   return (
     <>
-      <h1>Library page</h1>
+      <h1>Library: Connection to database</h1>
       {project.map((p) => (
         <div key={p.id}>
           <p>
-            Id: {p.id} || Title: {p.title} || Type: {p.type} || Rating:{" "}
-            {p.rating}
+            Id: {p.id} || Title: {p.title} || Type: {p.type} || {p.rating}
           </p>
         </div>
       ))}

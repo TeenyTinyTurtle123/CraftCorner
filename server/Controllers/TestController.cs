@@ -6,6 +6,13 @@ namespace server.Controllers;
 [Route("[controller]")]
 public class TestController : ControllerBase
 {
+    private readonly AppDbContext data;
+
+    public TestController(AppDbContext _data)
+    {
+        data = _data;
+    }
+
     [HttpGet("GetProjects")]
     public ActionResult GetProjects()
     {
@@ -16,7 +23,7 @@ public class TestController : ControllerBase
     [HttpGet("GetById")]
     public ActionResult GetById(int id)
     {
-        var project = MockData.Projects.FirstOrDefault(p => p.Id == id);
+        var project = data.Projects.FirstOrDefault(p => p.Id == id);
 
         if(project == null)
         {
@@ -25,4 +32,12 @@ public class TestController : ControllerBase
 
         return Ok(project);
     }
+
+    [HttpGet("GetAll")]
+    public ActionResult GetAll()
+    {
+        var projects = data.Projects.ToList();
+        return Ok(projects);
+    }
+
 }

@@ -12,13 +12,17 @@ export function ProjectInfo() {
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<Project | null>(null);
 
+  // https://localhost:44373 = the 's' in https is important!!
   useEffect(() => {
-    fetch(`http://localhost:5277/Test/GetById?id=${id}`)
-      .then((res) => res.json())
-      .then((json: Project) => setProject(json));
-    // .then((json) => console.log(json));
-  });
+    if (!id) return;
 
+    fetch(`https://localhost:44373/Test/GetById?id=${id}`)
+      .then((res) => res.json())
+      .then((json: Project) => setProject(json))
+      .catch((err) => console.error("Fetch error:", err));
+  }, [id]);
+  //[] this is a dependency array, it will run when the component first mounts and again whenever the value inside it changes
+  // this ensures the fetch only runs once per new project id
   return (
     <>
       <h1>Project Page</h1>
