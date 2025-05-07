@@ -16,3 +16,6 @@ obj/
 
 # Ignore published files
 publish/
+
+# To hide mt database connection
+Properties/launchSettings.json
