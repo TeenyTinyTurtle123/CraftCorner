@@ -40,4 +40,12 @@ public class TestController : ControllerBase
         return Ok(projects);
     }
 
+    [HttpPost("AddProject")]
+    public ActionResult AddProject(ProjectTest project)
+    {
+        data.Projects.Add(project);
+        data.SaveChanges(); // this fucking this is important ...
+        return Ok(project);
+    }
+
 }
