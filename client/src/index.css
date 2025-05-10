@@ -7,8 +7,13 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
-  /* text-decoration: inherit; */
+  color: #f8fafc;
+  text-decoration: inherit;
+  margin: 1rem;
+}
+
+a:hover {
+  color: #a3e635;
 }
 
 /* :root {

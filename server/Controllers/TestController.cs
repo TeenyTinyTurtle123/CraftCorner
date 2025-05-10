@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using server.models;
 
 namespace server.Controllers;
 
@@ -16,7 +17,7 @@ public class TestController : ControllerBase
     [HttpGet("GetProjects")]
     public ActionResult GetProjects()
     {
-        return Ok(MockData.Projects);
+        return Ok(MockData.MockProjectsList);
     }
 
     // Important to 'Name' each Http request. It doesn't listen to just the function name
@@ -41,7 +42,7 @@ public class TestController : ControllerBase
     }
 
     [HttpPost("AddProject")]
-    public ActionResult AddProject(ProjectTest project)
+    public ActionResult AddProject(Project project)
     {
         data.Projects.Add(project);
         data.SaveChanges(); // this fucking this is important ...
