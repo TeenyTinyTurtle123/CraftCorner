@@ -5,6 +5,7 @@ import { Library } from "./pages/Library";
 import { ProjectInfo } from "./pages/ProjectInfo";
 import { AddProject } from "./pages/NewProject";
 import { Layout } from "./components/Layout";
+import { Profile } from "./pages/Profile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="library" element={<Library />} />
           <Route path="projectInfo/:id" element={<ProjectInfo />} />
           <Route path="addProject" element={<AddProject />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </>

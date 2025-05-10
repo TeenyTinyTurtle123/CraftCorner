@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using server.models;
 
 public class AppDbContext : DbContext
 {
@@ -7,5 +8,5 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<ProjectTest> Projects { get; set; }
+    public DbSet<Project> Projects { get; set; }
 }

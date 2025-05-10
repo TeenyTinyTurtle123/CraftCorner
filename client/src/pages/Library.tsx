@@ -30,7 +30,8 @@ export function Library() {
       {project.map((p) => (
         <div key={p.id}>
           <p>
-            Id: {p.id} || Title: {p.title} || Type: {p.type} || {p.rating}
+            Id: {p.id} || Title: {p.title} || Type: {p.type} || Rating:
+            {p.rating}
           </p>
         </div>
       ))}

@@ -1,4 +1,4 @@
-public class Project
+public class MockProject
 {
     public int Id { get; set; }
     public string? Title { get; set; }
@@ -8,7 +8,7 @@ public class Project
 
 public static class MockData
 {
-    public static List<Project> Projects = new List<Project>
+    public static List<MockProject> MockProjectsList = new List<MockProject>
     {
         new() {Id = 1, Title = "Baby Blanket", Type = "Crochet", Rating = 4},
         new() {Id = 2, Title = "Strawberry Hat", Type = "Knit", Rating = 3},

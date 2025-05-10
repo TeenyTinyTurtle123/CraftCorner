@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 
-type Weather = {
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+type MockProject = {
+  id: number;
+  title: string;
+  type: string;
+  rating: number;
 };
 
 export function Home() {
   const [count, setCount] = useState(0);
-  const [weather, setWeather] = useState<Weather[]>([]);
+  const [proj, setProj] = useState<MockProject[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5277/WeatherForecast")
+    fetch("https://localhost:44373/Test/GetProjects")
       .then((res) => res.json())
-      .then((json: Weather[]) => setWeather(json));
+      .then((json: MockProject[]) => setProj(json));
   }, []);
 
   return (
@@ -24,11 +25,12 @@ export function Home() {
           count is {count}
         </button>
       </div>
-      {weather.map((w) => (
+      {proj.map((p) => (
         <div>
-          <p>Celsius: {w.temperatureC}</p>
-          <p>Farenfight: {w.temperatureF}</p>
-          <p>Summary: {w.summary}</p>
+          <p>Id: {p.id}</p>
+          <p>Title: {p.title}</p>
+          <p>Type: {p.type}</p>
+          <p>Rating: {p.rating}</p>
           <br />
         </div>
       ))}
