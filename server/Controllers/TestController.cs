@@ -48,11 +48,25 @@ public class TestController : ControllerBase
         data.SaveChanges(); // this fucking this is important ...
         return Ok(project);
     }
+    
+    [HttpGet("GetProjectById")]
+    public ActionResult GetProjectById(int projectId)
+    {
+        var project = data.Projects.FirstOrDefault(p => p.Id == projectId);
+        return Ok(project);
+    }
 
     [HttpGet("GetProjectsByStatus")]
     public ActionResult GetProjectsByStatus(int status)
     {
         var projects = data.Projects.Where(p => p.Status == (Status)status).ToList();
+        return Ok(projects);
+    }    
+    
+    [HttpGet("GetProjectsByType")]
+    public ActionResult GetProjectsByType(string type)
+    {
+        var projects = data.Projects.Where(p => p.Type == type).ToList();
         return Ok(projects);
     }
 }
