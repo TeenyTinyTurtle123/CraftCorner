@@ -21,7 +21,7 @@ namespace server.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ProjectTest", b =>
+            modelBuilder.Entity("server.models.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,6 +33,9 @@ namespace server.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")

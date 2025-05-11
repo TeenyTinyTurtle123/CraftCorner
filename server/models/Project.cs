@@ -7,4 +7,12 @@ public class Project
     public string? Type { get; set; }
     public int Rating { get; set; }
     public DateTime CreatedAt { get; set; }
+    public Status Status { get; set; } = Status.WIP;
+}
+
+public enum Status
+{
+    WIP,
+    Finished,
+    Deleted,
 }

@@ -49,4 +49,10 @@ public class TestController : ControllerBase
         return Ok(project);
     }
 
+    [HttpGet("GetProjectsByStatus")]
+    public ActionResult GetProjectsByStatus(int status)
+    {
+        var projects = data.Projects.Where(p => p.Status == (Status)status).ToList();
+        return Ok(projects);
+    }
 }
