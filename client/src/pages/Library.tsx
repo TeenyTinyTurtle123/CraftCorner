@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -143,6 +144,7 @@ export function Library() {
           </div>
         ))}
       </div>
+      <Button>Click me</Button>
     </>
   );
 }
