@@ -8,6 +8,7 @@ public class Project
     public int Rating { get; set; }
     public DateTime CreatedAt { get; set; }
     public Status Status { get; set; } = Status.WIP;
+    public string ImageURL { get; set; }
 }
 
 public enum Status

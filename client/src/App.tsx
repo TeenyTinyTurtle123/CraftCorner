@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Library } from "./pages/Library";
 import { ProjectInfo } from "./pages/ProjectInfo";
-import { AddProject } from "./pages/NewProject";
+import { AddProject } from "./pages/AddProject";
 import { Layout } from "./components/Layout";
 import { Profile } from "./pages/Profile";
 import { EditProject } from "./pages/EditProject";

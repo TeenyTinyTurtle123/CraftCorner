@@ -28,12 +28,13 @@ builder.Services.AddCors(options =>
 // http://localhost:5277
 
 
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
+
+app.UseStaticFiles(); // Make wwwroot content accessible to the web
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -9,6 +9,7 @@ type Project = {
   type: string;
   rating: number;
   status: Status;
+  imageURL: string;
 };
 
 export function EditProject() {
@@ -32,6 +33,11 @@ export function EditProject() {
           <p>Title: {project.title}</p>
           <p>Type: {project.type}</p>
           <p>Status: {project.status}</p>
+          <img
+            //TODO: must be a cleaner way to get the picture
+            src={`https://localhost:44373/images/${project.imageURL}`}
+            className="w-80 h-auto border-3 border-green-700"
+          />
         </div>
       ) : (
         <p>Loading...</p>

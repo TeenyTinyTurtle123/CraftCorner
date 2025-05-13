@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using server.Dto;
 using server.models;
 
 namespace server.Controllers;
@@ -41,11 +42,50 @@ public class TestController : ControllerBase
         return Ok(projects);
     }
 
+    // [HttpPost("AddProject")]
+    // public ActionResult AddProject(Project project)
+    // {
+    //     data.Projects.Add(project);
+    //     data.SaveChanges(); // this fucking this is important ...
+    //     return Ok(project);
+    // }
+
     [HttpPost("AddProject")]
-    public ActionResult AddProject(Project project)
+    public async Task<ActionResult> AddProject([FromForm] ProjectDto dto)
     {
+        string imageName;
+
+        if (dto.Image != null)
+        {
+            // Save image to disk (or cloud, or DB if you prefer)
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            Directory.CreateDirectory(uploadsFolder);
+
+            imageName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image.FileName);
+            var filePath = Path.Combine(uploadsFolder, imageName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await dto.Image.CopyToAsync(stream);
+            }
+        }
+        else
+        {
+            imageName = dto.ImageName ?? "DefaultProjectImage.jpg";
+        }
+        
+        var project = new Project
+        {
+            Title = dto.Title,
+            Type = dto.Type,
+            Rating = dto.Rating,
+            CreatedAt = DateTime.UtcNow,
+            Status = Status.WIP,
+            ImageURL = imageName // Assuming your entity has this property
+        };
         data.Projects.Add(project);
-        data.SaveChanges(); // this fucking this is important ...
+        await data.SaveChangesAsync();
+
         return Ok(project);
     }
     
