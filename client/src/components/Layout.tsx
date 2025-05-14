@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "./ui/Header";
+import { Header } from "./Header";
 
 export function Layout() {
   return (
@@ -7,7 +7,7 @@ export function Layout() {
       <Header />
       {/* pt-16 - padding at the top, to match with header */}
       {/* px-4 - padding on the sides */}
-      <main className="pt-16 px-4">
+      <main className="pt-28 px-4">
         <Outlet /> {/* this is where the pages will load */}
       </main>
     </>

@@ -48,7 +48,7 @@ export function AddProject() {
       .then((data) => console.log("Project added:", data))
       .catch((err) => console.error("POST error:", err));
 
-    setTitle(" ***SENT***");
+    setTitle("");
     setType("");
     setRating(0);
     setImage(null);

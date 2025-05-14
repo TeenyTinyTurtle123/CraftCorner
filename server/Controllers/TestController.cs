@@ -57,7 +57,6 @@ public class TestController : ControllerBase
 
         if (dto.Image != null)
         {
-            // Save image to disk (or cloud, or DB if you prefer)
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
             Directory.CreateDirectory(uploadsFolder);
 
@@ -71,6 +70,7 @@ public class TestController : ControllerBase
         }
         else
         {
+            // This doesn't actually work
             imageName = dto.ImageName ?? "DefaultProjectImage.jpg";
         }
         

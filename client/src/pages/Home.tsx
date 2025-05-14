@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -56,7 +55,7 @@ export function Home() {
           </Card>
         ))}
       </div>
-      {proj.map((p) => (
+      {/* {proj.map((p) => (
         <div>
           <p>Id: {p.id}</p>
           <p>Title: {p.title}</p>
@@ -64,8 +63,7 @@ export function Home() {
           <p>Rating: {p.rating}</p>
           <br />
         </div>
-      ))}
-      <Button variant="secondary">Click me</Button>
+      ))} */}
     </>
   );
 }
