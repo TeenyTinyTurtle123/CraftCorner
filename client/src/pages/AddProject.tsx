@@ -34,7 +34,7 @@ export function AddProject() {
 
     // const project: Project = { title, type, rating, image };
 
-    fetch("https://localhost:44373/Test/AddProject", {
+    fetch("https://localhost:44373/Project/AddProject", {
       method: "POST",
       // headers: {
       //   "Content-Type": "application/json",

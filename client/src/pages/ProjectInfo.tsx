@@ -16,7 +16,7 @@ export function ProjectInfo() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`https://localhost:44373/Test/GetById?id=${id}`)
+    fetch(`https://localhost:44373/Project/GetById?id=${id}`)
       .then((res) => res.json())
       .then((json: Project) => setProject(json))
       .catch((err) => console.error("Fetch error:", err));

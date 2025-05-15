@@ -5,7 +5,7 @@ import { Label } from "@radix-ui/react-label";
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 border-b-2 border-t-2 border-teal-300 p-4 z-50 flex items-center justify-between ">
+    <header className="fixed top-0 left-0 right-0 bg-white border-b-2 border-t-2 border-teal-300 p-4 z-50 flex items-center justify-between ">
       <div className="z-10">
         <img className="h-12 w-auto" src={logo} alt="Logo" />
       </div>

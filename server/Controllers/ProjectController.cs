@@ -6,11 +6,11 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TestController : ControllerBase
+public class ProjectController : ControllerBase
 {
     private readonly AppDbContext data;
 
-    public TestController(AppDbContext _data)
+    public ProjectController(AppDbContext _data)
     {
         data = _data;
     }

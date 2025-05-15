@@ -18,7 +18,7 @@ export function EditProject() {
 
   useEffect(() => {
     // Get the project based on id
-    fetch(`https://localhost:44373/Test/GetProjectById?projectId=${id}`)
+    fetch(`https://localhost:44373/Project/GetProjectById?projectId=${id}`)
       .then((res) => res.json())
       .then((json: Project) => setProject(json))
       .catch((err) => console.error("fetch error:", err));

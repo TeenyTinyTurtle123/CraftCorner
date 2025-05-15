@@ -20,7 +20,7 @@ export function Home() {
   const [proj, setProj] = useState<MockProject[]>([]);
 
   useEffect(() => {
-    fetch("https://localhost:44373/Test/GetProjects")
+    fetch("https://localhost:44373/Project/GetProjects")
       .then((res) => res.json())
       .then((json: MockProject[]) => setProj(json));
   }, []);

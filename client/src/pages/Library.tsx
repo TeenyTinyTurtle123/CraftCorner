@@ -20,14 +20,16 @@ export function Library() {
 
   useEffect(() => {
     // Get all projects in the database
-    fetch("https://localhost:44373/Test/GetAll")
+    fetch("https://localhost:44373/Project/GetAll")
       .then((res) => res.json())
       .then((json: Project[]) => setProject(json));
   }, []);
 
   // Get all projects based on their status
   function fetchProjectByStatus(status: number) {
-    fetch(`https://localhost:44373/Test/GetProjectsByStatus?status=${status}`)
+    fetch(
+      `https://localhost:44373/Project/GetProjectsByStatus?status=${status}`
+    )
       .then((res) => res.json())
       .then((json: Project[]) => setProjectStatus(json))
       .catch((err) => console.error("fetch error:", err));
@@ -35,7 +37,7 @@ export function Library() {
 
   // Get all projects based on their type
   function fetchProjectByType(type: string) {
-    fetch(`https://localhost:44373/Test/GetProjectsByType?type=${type}`)
+    fetch(`https://localhost:44373/Project/GetProjectsByType?type=${type}`)
       .then((res) => res.json())
       .then((json: Project[]) => setProjectType(json))
       .catch((err) => console.error("fetch error:", err));
