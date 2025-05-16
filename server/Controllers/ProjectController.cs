@@ -8,11 +8,11 @@ namespace server.Controllers;
 [Route("[controller]")]
 public class ProjectController : ControllerBase
 {
-    private readonly AppDbContext data;
+    private readonly AppDbContext _context;
 
-    public ProjectController(AppDbContext _data)
+    public ProjectController(AppDbContext context)
     {
-        data = _data;
+        _context = context;
     }
 
     [HttpGet("GetProjects")]
@@ -25,7 +25,7 @@ public class ProjectController : ControllerBase
     [HttpGet("GetById")]
     public ActionResult GetById(int id)
     {
-        var project = data.Projects.FirstOrDefault(p => p.Id == id);
+        var project = _context.Projects.FirstOrDefault(p => p.Id == id);
 
         if(project == null)
         {
@@ -38,7 +38,7 @@ public class ProjectController : ControllerBase
     [HttpGet("GetAll")]
     public ActionResult GetAll()
     {
-        var projects = data.Projects.ToList();
+        var projects = _context.Projects.ToList();
         return Ok(projects);
     }
 
@@ -83,8 +83,8 @@ public class ProjectController : ControllerBase
             Status = Status.WIP,
             ImageURL = imageName // Assuming your entity has this property
         };
-        data.Projects.Add(project);
-        await data.SaveChangesAsync();
+        _context.Projects.Add(project);
+        await _context.SaveChangesAsync();
 
         return Ok(project);
     }
@@ -92,21 +92,21 @@ public class ProjectController : ControllerBase
     [HttpGet("GetProjectById")]
     public ActionResult GetProjectById(int projectId)
     {
-        var project = data.Projects.FirstOrDefault(p => p.Id == projectId);
+        var project = _context.Projects.FirstOrDefault(p => p.Id == projectId);
         return Ok(project);
     }
 
     [HttpGet("GetProjectsByStatus")]
     public ActionResult GetProjectsByStatus(int status)
     {
-        var projects = data.Projects.Where(p => p.Status == (Status)status).ToList();
+        var projects = _context.Projects.Where(p => p.Status == (Status)status).ToList();
         return Ok(projects);
     }    
     
     [HttpGet("GetProjectsByType")]
     public ActionResult GetProjectsByType(string type)
     {
-        var projects = data.Projects.Where(p => p.Type == type).ToList();
+        var projects = _context.Projects.Where(p => p.Type == type).ToList();
         return Ok(projects);
     }
 }

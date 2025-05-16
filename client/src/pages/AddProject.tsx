@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 export function AddProject() {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
+  const [userId, setUserId] = useState(0);
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export function AddProject() {
     formdata.append("title", title);
     formdata.append("type", type);
     formdata.append("rating", rating.toString());
+    formdata.append("userId", userId.toString());
 
     if (image) {
       formdata.append("image", image);
@@ -52,6 +54,7 @@ export function AddProject() {
     setType("");
     setRating(0);
     setImage(null);
+    setUserId(0);
   }
 
   return (
@@ -67,6 +70,14 @@ export function AddProject() {
               onChange={(e) => setTitle(e.target.value)}
               required
             />
+          </div>
+          <div>
+            <label>User Id</label>
+            <input
+              type="number"
+              value={userId}
+              onChange={(e) => setUserId(Number(e.target.value))}
+            ></input>
           </div>
           <div>
             <label>Type:</label>

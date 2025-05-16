@@ -7,6 +7,7 @@ import { AddProject } from "./pages/AddProject";
 import { Layout } from "./components/Layout";
 import { Profile } from "./pages/Profile";
 import { EditProject } from "./pages/EditProject";
+import { LogIn } from "./pages/LogIn";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="addProject" element={<AddProject />} />
           <Route path="profile" element={<Profile />} />
           <Route path="editProject/:id" element={<EditProject />} />
+          <Route path="logIn" element={<LogIn />} />
         </Route>
       </Routes>
     </>

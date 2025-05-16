@@ -15,14 +15,27 @@ type MockProject = {
   rating: number;
 };
 
+type Users = {
+  id: number;
+  username: string;
+  password: string;
+};
+
 export function Home() {
   const [count, setCount] = useState(0);
   const [proj, setProj] = useState<MockProject[]>([]);
+  const [users, setUsers] = useState<Users[]>([]);
 
   useEffect(() => {
     fetch("https://localhost:44373/Project/GetProjects")
       .then((res) => res.json())
       .then((json: MockProject[]) => setProj(json));
+  }, []);
+
+  useEffect(() => {
+    fetch("https://localhost:44373/User/GetAll")
+      .then((res) => res.json())
+      .then((json: Users[]) => setUsers(json));
   }, []);
 
   return (
@@ -55,6 +68,13 @@ export function Home() {
           </Card>
         ))}
       </div>
+      {users.map((p) => (
+        <div>
+          <p>{p.id}</p>
+          <p>{p.username}</p>
+          <p>{p.password}</p>
+        </div>
+      ))}
       {/* {proj.map((p) => (
         <div>
           <p>Id: {p.id}</p>
