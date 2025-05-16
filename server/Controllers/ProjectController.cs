@@ -42,14 +42,6 @@ public class ProjectController : ControllerBase
         return Ok(projects);
     }
 
-    // [HttpPost("AddProject")]
-    // public ActionResult AddProject(Project project)
-    // {
-    //     data.Projects.Add(project);
-    //     data.SaveChanges(); // this fucking this is important ...
-    //     return Ok(project);
-    // }
-
     [HttpPost("AddProject")]
     public async Task<ActionResult> AddProject([FromForm] ProjectDto dto)
     {

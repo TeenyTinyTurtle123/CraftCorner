@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import logo from "../assets/Logotransparant.png";
 import { Dropdown } from "./Dropdown";
 import { Label } from "@radix-ui/react-label";
+import { useUser } from "@/Context";
 
 export function Header() {
+  const { user } = useUser();
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b-2 border-t-2 border-teal-300 p-4 z-50 flex items-center justify-between ">
       <div className="z-10">
@@ -34,7 +37,7 @@ export function Header() {
       </nav>
       {/* Dropdown (right) */}
       <div className="z-10 flex items-center gap-2">
-        <Label>Welcome Sofia!</Label>
+        <Label>Welcome {user?.username}</Label>
         <Dropdown />
       </div>
     </header>

@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useUser } from "@/Context";
 import { useEffect, useState } from "react";
 
 type MockProject = {
@@ -25,6 +26,8 @@ export function Home() {
   const [count, setCount] = useState(0);
   const [proj, setProj] = useState<MockProject[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
+  // just for testing
+  const { user } = useUser();
 
   useEffect(() => {
     fetch("https://localhost:44373/Project/GetProjects")
@@ -40,7 +43,7 @@ export function Home() {
 
   return (
     <>
-      <h1>Home Page 🐛</h1>
+      <h1>Home Page 🐛 {user?.username}</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

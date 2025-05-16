@@ -2,6 +2,7 @@ import { ProfileWIPCard } from "@/components/ProfileWIPCard";
 import DefaultProfile from "../assets/DefaultProfile.png";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/Context";
 
 type Status = "WIP" | "Finished" | "Deleted";
 
@@ -16,6 +17,7 @@ type Project = {
 
 export function Profile() {
   const [project, setProject] = useState<Project[]>([]);
+  const { user } = useUser();
 
   useEffect(() => {
     // Get all projects in the database
@@ -53,7 +55,7 @@ export function Profile() {
           />
           <div>
             <p>
-              <strong>Name:</strong> Elin Elinsson
+              <strong>Name: {user?.username}</strong>
             </p>
             <p>
               <strong>Country:</strong> Norway
