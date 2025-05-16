@@ -16,10 +16,10 @@ type User = {
 
 type UserContextType = {
   user: User | null;
-  setUser: (user: User | null) => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | null>(null);
 
 //This is just regular TypeScript standard for children, no need to think deeper on it
 type UserProviderProps = {

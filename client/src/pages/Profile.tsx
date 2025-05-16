@@ -1,19 +1,9 @@
 import { ProfileWIPCard } from "@/components/ProfileWIPCard";
-import DefaultProfile from "../assets/DefaultProfile.png";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/Context";
-
-type Status = "WIP" | "Finished" | "Deleted";
-
-type Project = {
-  id: number;
-  title: string;
-  type: string;
-  rating: number;
-  status: Status;
-  imageURL: string;
-};
+import { Project } from "@/types/project";
+import { useEffect, useState } from "react";
+import DefaultProfile from "../assets/DefaultProfile.png";
 
 export function Profile() {
   const [project, setProject] = useState<Project[]>([]);

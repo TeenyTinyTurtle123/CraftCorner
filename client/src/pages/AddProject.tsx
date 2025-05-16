@@ -2,24 +2,25 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-
-// type Project = {
-//   title: string;
-//   type: string;
-//   rating: number;
-//   image: File | null;
-// };
+import { useUser } from "@/Context";
 
 export function AddProject() {
+  const { user } = useUser();
+
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState(user?.id);
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!userId) {
+      console.error("User not logged in.");
+      return;
+    }
 
     const formdata = new FormData();
     formdata.append("title", title);
@@ -70,14 +71,6 @@ export function AddProject() {
               onChange={(e) => setTitle(e.target.value)}
               required
             />
-          </div>
-          <div>
-            <label>User Id</label>
-            <input
-              type="number"
-              value={userId}
-              onChange={(e) => setUserId(Number(e.target.value))}
-            ></input>
           </div>
           <div>
             <label>Type:</label>

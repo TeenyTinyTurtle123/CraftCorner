@@ -68,6 +68,7 @@ public class ProjectController : ControllerBase
         
         var project = new Project
         {
+            UserId = dto.UserId,
             Title = dto.Title,
             Type = dto.Type,
             Rating = dto.Rating,

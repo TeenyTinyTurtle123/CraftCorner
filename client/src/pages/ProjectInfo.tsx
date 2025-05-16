@@ -1,12 +1,6 @@
+import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-type Project = {
-  id: number;
-  title: string;
-  type: string;
-  rating: number;
-};
 
 export function ProjectInfo() {
   const { id } = useParams<{ id: string }>();

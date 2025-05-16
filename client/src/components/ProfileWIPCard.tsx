@@ -1,17 +1,7 @@
+import { Project } from "@/types/project";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-
-type Status = "WIP" | "Finished" | "Deleted";
-
-type Project = {
-  id: number;
-  title: string;
-  type: string;
-  rating: number;
-  status: Status;
-  imageURL: string;
-};
 
 type ProfileWIPCardProps = {
   project: Project;
@@ -39,14 +29,4 @@ export function ProfileWIPCard({ project }: ProfileWIPCardProps) {
       </Card>
     </>
   );
-}
-
-{
-  /* <div className="flex flex-col justify-end ml-2 flex-grow">
-  <div className="flex flex-col gap-2">
-    <Badge>{project.status}</Badge>
-    <Badge>{project.type}</Badge>
-    <Button>Edit</Button>
-  </div>
-</div>; */
 }

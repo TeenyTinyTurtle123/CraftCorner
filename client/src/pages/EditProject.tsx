@@ -1,16 +1,6 @@
+import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-type Status = "WIP" | "Finished" | "Deleted";
-
-type Project = {
-  id: number;
-  title: string;
-  type: string;
-  rating: number;
-  status: Status;
-  imageURL: string;
-};
 
 export function EditProject() {
   const { id } = useParams<{ id: string }>();

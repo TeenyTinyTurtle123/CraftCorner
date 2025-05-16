@@ -19,7 +19,6 @@ type MockProject = {
 type Users = {
   id: number;
   username: string;
-  password: string;
 };
 
 export function Home() {
@@ -75,7 +74,6 @@ export function Home() {
         <div>
           <p>{p.id}</p>
           <p>{p.username}</p>
-          <p>{p.password}</p>
         </div>
       ))}
       {/* {proj.map((p) => (

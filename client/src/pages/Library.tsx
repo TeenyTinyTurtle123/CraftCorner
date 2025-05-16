@@ -1,16 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-type Status = "WIP" | "Finished" | "Deleted";
-
-type Project = {
-  id: number;
-  title: string;
-  type: string;
-  rating: number;
-  status: Status;
-};
 
 export function Library() {
   const [project, setProject] = useState<Project[]>([]);
@@ -51,7 +42,7 @@ export function Library() {
           <div key={p.id}>
             <p>
               Id: {p.id} || Title: {p.title} || Type: {p.type} || Rating:
-              {p.rating} || Status: {p.status}
+              {p.rating} || Status: {p.status} || {p.createdAt.slice(0, 10)}
             </p>
           </div>
         ))}
