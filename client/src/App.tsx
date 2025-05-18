@@ -8,6 +8,7 @@ import { Layout } from "./components/Layout";
 import { Profile } from "./pages/Profile";
 import { EditProject } from "./pages/EditProject";
 import { LogIn } from "./pages/LogIn";
+import { TestPage } from "./pages/TestPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="profile/:id" element={<Profile />} />
           <Route path="editProject/:id" element={<EditProject />} />
           <Route path="logIn" element={<LogIn />} />
+          <Route path="testPage" element={<TestPage />} />
         </Route>
       </Routes>
     </>

@@ -34,6 +34,12 @@ export function Header() {
         >
           Profile
         </Link>
+        <Link
+          className="hover:text-teal-300 font-semibold text-lg"
+          to="/testPage"
+        >
+          TestPage
+        </Link>
       </nav>
 
       {/* Right side: Dropdown or login link */}
