@@ -9,12 +9,28 @@ export function Profile() {
   const [project, setProject] = useState<Project[]>([]);
   const { user } = useUser();
 
+  // useEffect(() => {
+  //   // Get all projects in the database
+  //   fetch("https://localhost:44373/Project/GetAll")
+  //     .then((res) => res.json())
+  //     .then((json: Project[]) => setProject(json));
+  // }, []);
+
   useEffect(() => {
-    // Get all projects in the database
-    fetch("https://localhost:44373/Project/GetAll")
-      .then((res) => res.json())
-      .then((json: Project[]) => setProject(json));
-  }, []);
+    if (!user?.id) return;
+
+    fetch(
+      `https://localhost:44373/Project/GetProjectsByUserId?userId=${user.id}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Server error: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((json: Project[]) => setProject(json))
+      .catch((err) => console.error("Fetch error:", err));
+  }, [user?.id]);
 
   const wipCount = project.filter((p) => p.status === "WIP").length;
   const finishedCount = project.filter((p) => p.status === "Finished").length;

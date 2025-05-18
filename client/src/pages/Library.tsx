@@ -119,6 +119,7 @@ export function Library() {
         <h4>Edit project</h4>
         {project.map((p) => (
           <div
+            key={p.id}
             style={{
               display: "flex",
               flexDirection: "row",

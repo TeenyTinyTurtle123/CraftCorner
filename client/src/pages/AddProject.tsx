@@ -74,11 +74,17 @@ export function AddProject() {
           </div>
           <div>
             <label>Type:</label>
-            <select value={type} onChange={(e) => setType(e.target.value)}>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              required
+            >
+              <option value="" disabled></option>
               <option value="Crochet">Crochet</option>
               <option value="Knit">Knit</option>
               <option value="CrossStitch">Cross stitch</option>
             </select>
+            {type}
           </div>
           <div>
             <label>Rating:</label>

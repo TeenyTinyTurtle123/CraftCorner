@@ -18,7 +18,7 @@ function App() {
           <Route path="library" element={<Library />} />
           <Route path="projectInfo/:id" element={<ProjectInfo />} />
           <Route path="addProject" element={<AddProject />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:id" element={<Profile />} />
           <Route path="editProject/:id" element={<EditProject />} />
           <Route path="logIn" element={<LogIn />} />
         </Route>

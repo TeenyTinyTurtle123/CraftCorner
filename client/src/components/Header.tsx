@@ -30,7 +30,7 @@ export function Header() {
         </Link>
         <Link
           className="hover:text-teal-300 font-semibold text-lg"
-          to="/profile"
+          to={`/profile/${user?.id}`}
         >
           Profile
         </Link>

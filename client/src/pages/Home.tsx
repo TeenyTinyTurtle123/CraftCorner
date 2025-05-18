@@ -71,7 +71,7 @@ export function Home() {
         ))}
       </div>
       {users.map((p) => (
-        <div>
+        <div key={p.id}>
           <p>{p.id}</p>
           <p>{p.username}</p>
         </div>

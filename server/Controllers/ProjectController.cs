@@ -34,6 +34,13 @@ public class ProjectController : ControllerBase
 
         return Ok(project);
     }
+        
+    [HttpGet("GetProjectsByUserId")]
+    public ActionResult GetProjectsByUserId(int userId)
+    {
+        var projects = _context.Projects.Where(p => p.UserId == userId).ToList();
+        return Ok(projects);
+    }
 
     [HttpGet("GetAll")]
     public ActionResult GetAll()
