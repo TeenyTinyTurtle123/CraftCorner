@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useUser } from "@/Context";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -19,7 +21,8 @@ export function LogIn() {
     if (response.ok) {
       const user = await response.json();
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/profile");
+      setUser(user);
+      navigate("/");
     } else {
       alert("Invalid login");
     }

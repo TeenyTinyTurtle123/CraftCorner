@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 // export const UserContext = createContext<User | undefined>(undefined);
 
@@ -28,12 +22,11 @@ type UserProviderProps = {
 
 export function UserProvider({ children }: UserProviderProps) {
   //user and setUser state is available globally
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (stored) setUser(JSON.parse(stored));
-  }, []);
+  const [user, setUser] = useState(() => {
+    // This will load the user from localStorage on first render
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   return (
     // value={{ user, setUser }}> gives everyone access to user and setUser

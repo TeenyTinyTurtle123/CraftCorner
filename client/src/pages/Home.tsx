@@ -40,6 +40,8 @@ export function Home() {
       .then((json: Users[]) => setUsers(json));
   }, []);
 
+  console.log("Is logged in: " + user?.username);
+
   return (
     <>
       <h1>Home Page 🐛 {user?.username}</h1>
@@ -76,15 +78,6 @@ export function Home() {
           <p>{p.username}</p>
         </div>
       ))}
-      {/* {proj.map((p) => (
-        <div>
-          <p>Id: {p.id}</p>
-          <p>Title: {p.title}</p>
-          <p>Type: {p.type}</p>
-          <p>Rating: {p.rating}</p>
-          <br />
-        </div>
-      ))} */}
     </>
   );
 }

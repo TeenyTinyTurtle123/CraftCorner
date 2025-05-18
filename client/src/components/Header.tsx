@@ -8,7 +8,7 @@ export function Header() {
   const { user } = useUser();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white border-b-2 border-t-2 border-teal-300 p-4 z-50 flex items-center justify-between ">
+    <header className="fixed top-0 left-0 right-0 h-24 bg-white border-b-2 border-t-2 border-teal-300 p-4 z-50 flex items-center justify-between ">
       <div className="z-10">
         <img className="h-12 w-auto" src={logo} alt="Logo" />
       </div>
@@ -18,7 +18,7 @@ export function Header() {
         </Link>
         <Link
           className="hover:text-teal-300 font-semibold text-lg"
-          to="/library"
+          to={`/library/${user?.id}`}
         >
           Library
         </Link>
@@ -35,10 +35,22 @@ export function Header() {
           Profile
         </Link>
       </nav>
-      {/* Dropdown (right) */}
+
+      {/* Right side: Dropdown or login link */}
       <div className="z-10 flex items-center gap-2">
-        <Label>Welcome {user?.username}</Label>
-        <Dropdown />
+        {user ? (
+          <>
+            <Label>Welcome {user.username}</Label>
+            <Dropdown />
+          </>
+        ) : (
+          <Link
+            className="hover:text-teal-300 font-semibold text-lg"
+            to="/login"
+          >
+            Sign in / Log in
+          </Link>
+        )}
       </div>
     </header>
   );
