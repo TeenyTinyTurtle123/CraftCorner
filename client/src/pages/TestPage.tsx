@@ -1,3 +1,5 @@
+import { EditProjectModal } from "@/components/EditProjectModal";
+import { Button } from "@/components/ui/button";
 import { useUser } from "@/Context";
 import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
@@ -16,6 +18,8 @@ export function TestPage() {
   const [projectStatus, setProjectStatus] = useState<Project[]>([]);
   const [statusLabel, setStatusLabel] = useState("WIP");
   const [projectType, setProjectType] = useState<Project[]>([]);
+
+  const [isOpen, setIsOpen] = useState(false);
   // just for testing
   const { user } = useUser();
 
@@ -169,6 +173,10 @@ export function TestPage() {
           </div>
         ))}
       </div>
+      <Button onClick={() => setIsOpen(true)}>Open modal</Button>
+      <EditProjectModal open={isOpen} onClose={() => setIsOpen(false)}>
+        This is children
+      </EditProjectModal>
     </>
   );
 }
