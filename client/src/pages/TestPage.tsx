@@ -72,7 +72,7 @@ export function TestPage() {
         {project.map((p) => (
           <div key={p.id}>
             <p>
-              Id: {p.id} || Title: {p.title} || Type: {p.type} || Rating:
+              Id: {p.id} || Title: {p.title} || Type: {p.projectType} || Rating:
               {p.rating} || Status: {p.status} || {p.createdAt.slice(0, 10)}
             </p>
           </div>
@@ -141,7 +141,7 @@ export function TestPage() {
         {projectType.map((p) => (
           <div>
             <p>
-              {p.title} -- {p.type}
+              {p.title} -- {p.projectType}
             </p>
           </div>
         ))}

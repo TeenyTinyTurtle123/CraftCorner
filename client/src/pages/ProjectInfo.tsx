@@ -23,8 +23,8 @@ export function ProjectInfo() {
       {project && (
         <div>
           <p>
-            Id: {project.id} || Title: {project.title} || Type: {project.type}{" "}
-            || Rating: {project.rating}
+            Id: {project.id} || Title: {project.title} || Type:{" "}
+            {project.projectType} || Rating: {project.rating}
           </p>
         </div>
       )}

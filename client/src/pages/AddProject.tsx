@@ -9,9 +9,12 @@ export function AddProject() {
 
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
-  const [userId, setUserId] = useState(user?.id);
+  const [status, setStatus] = useState("");
+  const [notes, setNotes] = useState("");
+  const [userId] = useState(user?.id);
   const [rating, setRating] = useState(0);
   const [image, setImage] = useState<File | null>(null);
+  const [pattern, setPattern] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -25,6 +28,8 @@ export function AddProject() {
     const formdata = new FormData();
     formdata.append("title", title);
     formdata.append("type", type);
+    formdata.append("status", status);
+    formdata.append("notes", notes);
     formdata.append("rating", rating.toString());
     formdata.append("userId", userId.toString());
 
@@ -34,8 +39,16 @@ export function AddProject() {
       // backend must resolve this
       formdata.append("imageName", "DefaultProjectImage.jpg");
     }
+    if (pattern) {
+      formdata.append("pattern", pattern);
+    } else {
+      // backend must resolve this
+      formdata.append("pattern", "");
+    }
 
     // const project: Project = { title, type, rating, image };
+
+    console.log(formdata);
 
     fetch("https://localhost:44373/Project/AddProject", {
       method: "POST",
@@ -53,9 +66,10 @@ export function AddProject() {
 
     setTitle("");
     setType("");
+    setStatus("");
+    setNotes("===Done===");
     setRating(0);
     setImage(null);
-    setUserId(0);
   }
 
   return (
@@ -80,11 +94,32 @@ export function AddProject() {
               required
             >
               <option value="" disabled></option>
+              <option value="Other">Other</option>
               <option value="Crochet">Crochet</option>
               <option value="Knit">Knit</option>
-              <option value="CrossStitch">Cross stitch</option>
+              <option value="CrossStitch">CrossStitch</option>
+              <option value="Embroidery">Embroidery</option>
             </select>
-            {type}
+          </div>
+          <div>
+            <label>Status:</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+            >
+              <option value="" disabled></option>
+              <option value="WIP">WIP</option>
+              <option value="Finished">Finished</option>
+            </select>
+          </div>
+          <div>
+            <label>Notes</label>
+            <input
+              type="text"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            ></input>
           </div>
           <div>
             <label>Rating:</label>
@@ -108,6 +143,20 @@ export function AddProject() {
                   const file = e.target.files[0];
                   setImage(file);
                   setImagePreview(URL.createObjectURL(file));
+                }
+              }}
+            />
+          </div>
+          <div>
+            <Label htmlFor="image">Pattern</Label>
+            <Input
+              id="pattern"
+              type="file"
+              onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  const file = e.target.files[0];
+                  setPattern(file);
+                  // setImagePreview(URL.createObjectURL(file));
                 }
               }}
             />

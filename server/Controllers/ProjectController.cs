@@ -52,7 +52,8 @@ public class ProjectController : ControllerBase
     [HttpPost("AddProject")]
     public async Task<ActionResult> AddProject([FromForm] ProjectDto dto)
     {
-        string imageName;
+        string imageName = null;
+        string pattern = null;
 
         if (dto.Image != null)
         {
@@ -73,14 +74,30 @@ public class ProjectController : ControllerBase
             imageName = dto.ImageName ?? "DefaultProjectImage.jpg";
         }
         
+        if (dto.Pattern != null)
+        {
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "patterns");
+            Directory.CreateDirectory(uploadsFolder);
+
+            pattern = Guid.NewGuid().ToString() + Path.GetExtension(dto.Pattern.FileName);
+            var filePath = Path.Combine(uploadsFolder, pattern);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await dto.Pattern.CopyToAsync(stream);
+            }
+        }
+        
         var project = new Project
         {
             UserId = dto.UserId,
             Title = dto.Title,
-            Type = dto.Type,
+            ProjectType = dto.Type,
             Rating = dto.Rating,
             CreatedAt = DateTime.UtcNow,
-            Status = Status.WIP,
+            Status = dto.Status,
+            Notes = dto.Notes,
+            PatternURL = pattern,
             ImageURL = imageName // Assuming your entity has this property
         };
         _context.Projects.Add(project);
@@ -102,11 +119,4 @@ public class ProjectController : ControllerBase
         var projects = _context.Projects.Where(p => p.Status == (Status)status).ToList();
         return Ok(projects);
     }    
-    
-    [HttpGet("GetProjectsByType")]
-    public ActionResult GetProjectsByType(string type)
-    {
-        var projects = _context.Projects.Where(p => p.Type == type).ToList();
-        return Ok(projects);
-    }
 }

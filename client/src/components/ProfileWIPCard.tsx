@@ -22,7 +22,7 @@ export function ProfileWIPCard({ project }: ProfileWIPCardProps) {
           />
           <div className=" ml-5 content-end">
             <Badge>{project.status}</Badge>
-            <Badge>{project.type}</Badge>
+            <Badge>{project.projectType}</Badge>
             <Button>Edit</Button>
           </div>
         </CardContent>

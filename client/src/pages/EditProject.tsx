@@ -21,7 +21,7 @@ export function EditProject() {
       {project ? (
         <div>
           <p>Title: {project.title}</p>
-          <p>Type: {project.type}</p>
+          <p>Type: {project.projectType}</p>
           <p>Status: {project.status}</p>
           <img
             //TODO: must be a cleaner way to get the picture

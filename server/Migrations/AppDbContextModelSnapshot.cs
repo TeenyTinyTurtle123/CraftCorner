@@ -34,9 +34,20 @@ namespace server.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("finishedAt");
+
                     b.Property<string>("ImageURL")
                         .HasColumnType("text")
                         .HasColumnName("image_url");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("text")
+                        .HasColumnName("notes");
+
+                    b.Property<string>("PatternURL")
+                        .HasColumnType("text");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer")
@@ -51,9 +62,8 @@ namespace server.Migrations
                         .HasColumnType("text")
                         .HasColumnName("title");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
                         .HasColumnName("type");
 
                     b.Property<int>("UserId")

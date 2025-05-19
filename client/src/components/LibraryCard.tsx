@@ -1,6 +1,6 @@
 import { Project } from "@/types/project";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 type LibraryCardProps = {
   project: Project;
@@ -19,7 +19,7 @@ export function LibraryCard({ project }: LibraryCardProps) {
             src={`https://localhost:44373/images/${project.imageURL}`}
             className="w-30 h-44 object-cover rounded border-2 border-teal-600"
           />
-          <Badge>{project.type}</Badge>
+          <Badge>{project.projectType}</Badge>
           <div>pattern</div>
           <div>Notes:</div>
           <div>
