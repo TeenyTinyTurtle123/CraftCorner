@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { EditProjectModal } from "./EditProjectModal";
 
 type LibraryCardProps = {
   project: Project;
@@ -10,6 +11,7 @@ type LibraryCardProps = {
 
 export function LibraryCard({ project }: LibraryCardProps) {
   const [showImageModal, setShowImageModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -102,9 +104,14 @@ export function LibraryCard({ project }: LibraryCardProps) {
 
           {/* Edit/Delete Actions */}
           <div className="flex flex-col justify-end gap-2 ml-auto">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => setIsOpen(true)}>
               Edit
             </Button>
+            <EditProjectModal
+              project={project}
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+            />
             <Button variant="destructive" size="sm">
               Delete
             </Button>
