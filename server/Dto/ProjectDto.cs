@@ -1,10 +1,10 @@
-using server.models;
-using Type = System.Type;
+using server.Entities;
 
 namespace server.Dto;
 
 public class ProjectDto
 {
+    public int Id { get; set; }
     public int UserId { get; set; }
     public string Title { get; set; }
     public ProjectType Type { get; set; }

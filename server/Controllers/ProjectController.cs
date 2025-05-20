@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using server.Dto;
-using server.models;
+using server.Entities;
 
 namespace server.Controllers;
 
@@ -104,6 +104,64 @@ public class ProjectController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(project);
+    }
+
+    [HttpPost("EditProject")]
+    public async Task<ActionResult> EditProject([FromForm] ProjectDto dto)
+    {
+        var databaseProject = _context.Projects.FirstOrDefault(p => p.Id == dto.Id);
+        
+        if (databaseProject == null)
+        {
+            return NotFound($"Project with ID {dto.Id} not found.");
+        }
+
+        databaseProject.Title = dto.Title;
+        databaseProject.ProjectType = dto.Type;
+        databaseProject.Rating = dto.Rating;
+        databaseProject.Status = dto.Status;
+        databaseProject.Notes = dto.Notes;
+        
+        if (dto.CreatedAt != null)
+        {
+            databaseProject.CreatedAt = dto.CreatedAt;
+        }
+
+        if (dto.FinishedAt != null)
+        {
+            databaseProject.FinishedAt = dto.FinishedAt;
+        }
+        
+        // image upload
+        if (dto.Image != null && dto.Image.Length > 0)
+        {
+            var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
+            var imagePath = Path.Combine("wwwroot/images", imageFileName);
+
+            await using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await dto.Image.CopyToAsync(stream);
+            }
+
+            databaseProject.ImageURL = imageFileName; // Save just the filename
+        }
+
+        // pattern upload
+        if (dto.Pattern != null && dto.Pattern.Length > 0)
+        {
+            var patternFileName = Guid.NewGuid() + Path.GetExtension(dto.Pattern.FileName);
+            var patternPath = Path.Combine("wwwroot/patterns", patternFileName);
+
+            await using (var stream = new FileStream(patternPath, FileMode.Create))
+            {
+                await dto.Pattern.CopyToAsync(stream);
+            }
+
+            databaseProject.PatternURL = patternFileName;
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok(databaseProject);
     }
     
     [HttpGet("GetProjectById")]

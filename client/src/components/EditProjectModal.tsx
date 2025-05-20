@@ -24,6 +24,7 @@ export function EditProjectModal({
     project.finishedAt ? new Date(project.finishedAt) : undefined
   );
 
+  const [id] = useState(project.id);
   const [title, setTitle] = useState(project.title);
   const [type, setType] = useState<ProjectType>(project.projectType);
   const [status, setStatus] = useState(project.status);
@@ -38,6 +39,7 @@ export function EditProjectModal({
     e.preventDefault();
 
     const formdata = new FormData();
+    formdata.append("id", id.toString());
     formdata.append("title", title);
     formdata.append("type", type);
     formdata.append("status", status);
@@ -52,6 +54,8 @@ export function EditProjectModal({
     }
     if (image) {
       formdata.append("image", image);
+    } else {
+      formdata.append("image", "");
     }
     if (pattern) {
       formdata.append("pattern", pattern);
@@ -59,12 +63,17 @@ export function EditProjectModal({
       formdata.append("pattern", "");
     }
 
+    console.log(formdata);
+
     fetch("https://localhost:44373/Project/EditProject", {
       method: "POST",
       body: formdata,
     })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to Update project");
+      .then(async (res) => {
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`Failed to Update project: ${res.status} ${errText}`);
+        }
         return res.json();
       })
       .then((data) => console.log("Project Updated:", data))
@@ -104,6 +113,7 @@ export function EditProjectModal({
                   }}
                 />
                 <Button
+                  type="button"
                   variant="outline"
                   size="sm"
                   className="mt-2"
@@ -120,7 +130,7 @@ export function EditProjectModal({
                       href={`https://localhost:44373/patterns/${project.patternURL}`}
                       download
                     >
-                      <Button size="sm" className="mb-2">
+                      <Button type="button" size="sm" className="mb-2">
                         ⬇️ Download Pattern
                       </Button>
                     </a>
@@ -201,8 +211,6 @@ export function EditProjectModal({
                     onChange={(e) => setRating(Number(e.target.value))}
                   ></Input>
                 </div>
-                <p>{project.createdAt}</p>
-                <p>{project.finishedAt}</p>
               </div>
               <div className="border-2 border-sky-300">
                 <label>Notes</label>
@@ -213,6 +221,9 @@ export function EditProjectModal({
                 ></Input>
               </div>
             </div>
+            {/* TODO: create a popover component? Also the date is wrong by one day */}
+            {/* TODO: Also the date is wrong by one day */}
+            {/* TODO: The pictures that is being added is smallar */}
             <div className="flex flex-row border-2 border-green-400">
               <div className="">
                 <Popover>
@@ -232,7 +243,7 @@ export function EditProjectModal({
                     />
                   </PopoverContent>
                 </Popover>
-                <Button onClick={() => setStartDate(new Date())}>
+                <Button type="button" onClick={() => setStartDate(new Date())}>
                   Set to today
                 </Button>
                 <Popover>
@@ -252,15 +263,17 @@ export function EditProjectModal({
                     />
                   </PopoverContent>
                 </Popover>
-                <Button onClick={() => setEndDate(new Date())}>
+                <Button type="button" onClick={() => setEndDate(new Date())}>
                   Set to today
                 </Button>
               </div>
               <div className="mt-4 text-right ml-auto">
-                <Button onClick={onClose}>Close</Button>
+                <Button type="button" onClick={onClose}>
+                  Close
+                </Button>
               </div>
             </div>
-            <Button>Save</Button>
+            <Button type="submit">Save</Button>
           </div>
         </div>
       </form>
