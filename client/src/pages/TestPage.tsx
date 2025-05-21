@@ -1,3 +1,4 @@
+import { ColorBadge } from "@/components/ColorBadge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,6 +63,14 @@ export function TestPage() {
   return (
     <>
       <h1>Test Page</h1>
+      <ColorBadge children="Other" />
+      <ColorBadge children="Crochet" />
+      <ColorBadge children="Knit" />
+      <ColorBadge children="CrossStitch" />
+      <ColorBadge children="Embroidery" />
+      <ColorBadge children="WIP" />
+      <ColorBadge children="Finished" />
+      <ColorBadge children="Deleted" />
       <div>
         <h3>
           The logged in user Id: {user?.id} Username: {user?.username}

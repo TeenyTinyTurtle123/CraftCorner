@@ -221,9 +221,10 @@ export function EditProjectModal({
                 ></Input>
               </div>
             </div>
-            {/* TODO: create a popover component? Also the date is wrong by one day */}
+            {/* TODO: create a popover component?*/}
             {/* TODO: Also the date is wrong by one day */}
             {/* TODO: The pictures that is being added is smallar */}
+            {/* TODO: Remove the old picture*/}
             <div className="flex flex-row border-2 border-green-400">
               <div className="">
                 <Popover>

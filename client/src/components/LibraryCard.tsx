@@ -1,9 +1,11 @@
 import { Project } from "@/types/project";
+import { ArrowBigDownDash, Star } from "lucide-react";
 import { useState } from "react";
+import { ColorBadge } from "./ColorBadge";
+import { EditProjectModal } from "./EditProjectModal";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { EditProjectModal } from "./EditProjectModal";
 
 type LibraryCardProps = {
   project: Project;
@@ -27,7 +29,7 @@ export function LibraryCard({ project }: LibraryCardProps) {
 
         <CardContent className="flex flex-row gap-4">
           {/* Image */}
-          <div className="relative">
+          <div className="relative flex-shrink-0 min-w-[7rem]">
             <img
               src={`https://localhost:44373/images/${project.imageURL}`}
               className="w-28 h-40 object-cover rounded-lg border-2 border-teal-600 cursor-pointer"
@@ -57,8 +59,12 @@ export function LibraryCard({ project }: LibraryCardProps) {
                   href={`https://localhost:44373/patterns/${project.patternURL}`}
                   download
                 >
-                  <Button size="sm" className="mb-2">
-                    ⬇️ Download Pattern
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mb-2 border-2S hover:border-teal-600"
+                  >
+                    <ArrowBigDownDash /> Show Pattern
                   </Button>
                 </a>
               ) : (
@@ -70,14 +76,16 @@ export function LibraryCard({ project }: LibraryCardProps) {
             <div>
               {/* Type && Status */}
               <div className="flex flex-wrap gap-2 mb-2">
-                <Badge>{project.projectType}</Badge>
-                <Badge variant="secondary">{project.status}</Badge>
+                <ColorBadge children={project.projectType} />
+                <ColorBadge children={project.status} />
               </div>
 
-              <div className="flex text-yellow-600 mb-1">
+              <div className="flex text-yellow-400 mb-1">
                 <p>Rating: </p>
                 {Array.from({ length: project.rating }, (_, i) => (
-                  <span key={i}>⭐</span>
+                  <span key={i}>
+                    <Star />
+                  </span>
                 ))}
               </div>
 
