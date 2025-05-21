@@ -124,12 +124,12 @@ public class ProjectController : ControllerBase
         
         if (dto.CreatedAt != null)
         {
-            databaseProject.CreatedAt = dto.CreatedAt;
+            databaseProject.CreatedAt = dto.CreatedAt.ToUniversalTime();
         }
 
         if (dto.FinishedAt != null)
         {
-            databaseProject.FinishedAt = dto.FinishedAt;
+            databaseProject.FinishedAt = dto.FinishedAt?.ToUniversalTime();
         }
         
         // image upload

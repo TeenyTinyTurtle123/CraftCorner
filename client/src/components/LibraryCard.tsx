@@ -9,11 +9,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 type LibraryCardProps = {
   project: Project;
+  refreshProject: () => void;
 };
 
-export function LibraryCard({ project }: LibraryCardProps) {
+export function LibraryCard({ project, refreshProject }: LibraryCardProps) {
   const [showImageModal, setShowImageModal] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  function handleEditSuccess() {
+    setEditModalOpen(false);
+    refreshProject();
+    // setShowSuccessMessage(true);
+    // setTimeout(() => setShowSuccessMessage(false), 3000); // Auto-hide after 3s
+  }
 
   return (
     <>
@@ -22,8 +31,14 @@ export function LibraryCard({ project }: LibraryCardProps) {
         className="flex flex-col p-4 hover:bg-teal-50 shadow-md rounded-xl transition duration-300"
       >
         <CardHeader className="p-0">
-          <CardTitle className="text-left text-xl font-semibold">
+          <CardTitle className="flex flex-row text-left text-xl font-semibold">
             {project.title}
+            {/* {showSuccessMessage && (
+              <div className="flex items-center gap-1 text-green-600 font-medium ml-4">
+                <span>Project updated! </span>
+                <PartyPopper />
+              </div>
+            )} */}
           </CardTitle>
         </CardHeader>
 
@@ -91,12 +106,12 @@ export function LibraryCard({ project }: LibraryCardProps) {
 
               <div className="flex gap-2 mt-2 text-xs text-gray-600">
                 <Badge variant="outline">
-                  Start: {project.createdAt.slice(0, 10)}
+                  Start: {new Date(project.createdAt).toLocaleDateString()}
                 </Badge>
                 <Badge variant="outline">
-                  End:{" "}
+                  End:
                   {project.finishedAt ? (
-                    project.finishedAt.slice(0, 10)
+                    new Date(project.finishedAt).toLocaleDateString()
                   ) : (
                     <span className="text-gray-400 italic">TBD</span>
                   )}
@@ -112,13 +127,18 @@ export function LibraryCard({ project }: LibraryCardProps) {
 
           {/* Edit/Delete Actions */}
           <div className="flex flex-col justify-end gap-2 ml-auto">
-            <Button variant="outline" size="sm" onClick={() => setIsOpen(true)}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setEditModalOpen(true)}
+            >
               Edit
             </Button>
             <EditProjectModal
+              open={editModalOpen}
               project={project}
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
+              onClose={() => setEditModalOpen(false)}
+              onSuccess={handleEditSuccess}
             />
             <Button variant="destructive" size="sm">
               Delete

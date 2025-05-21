@@ -34,6 +34,17 @@ export function Library() {
     p.title.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())
   );
 
+  function refreshProjectById(id: number) {
+    fetch(`https://localhost:44373/Project/GetById?id=${id}`)
+      .then((res) => res.json())
+      .then((updated) => {
+        setAllProject((prev) =>
+          prev.map((p) => (p.id === updated.id ? updated : p))
+        );
+      })
+      .catch((err) => console.error("Failed to refresh project:", err));
+  }
+
   return (
     <>
       <div className="max-w-screen-lg mx-auto p-3">
@@ -84,7 +95,11 @@ export function Library() {
           {/* card */}
           <div className="grid gap-3">
             {filteredProjects.map((p) => (
-              <LibraryCard key={p.id} project={p} />
+              <LibraryCard
+                key={p.id}
+                project={p}
+                refreshProject={() => refreshProjectById(p.id)}
+              />
             ))}
           </div>
         </div>

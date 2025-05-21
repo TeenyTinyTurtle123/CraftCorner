@@ -10,12 +10,14 @@ type EditProjectModalProps = {
   project: Project;
   open: boolean;
   onClose: () => void;
+  onSuccess: () => void;
 };
 
 export function EditProjectModal({
   open,
   project,
   onClose,
+  onSuccess,
 }: EditProjectModalProps) {
   const [startDate, setStartDate] = useState<Date | undefined>(
     project.createdAt ? new Date(project.createdAt) : undefined
@@ -35,8 +37,17 @@ export function EditProjectModal({
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+  function getLocalDateString(date: Date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`; // "2025-05-21"
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fixedStartDate = getLocalDateString(startDate!);
+    const fixedEndDate = getLocalDateString(endDate!);
 
     const formdata = new FormData();
     formdata.append("id", id.toString());
@@ -47,10 +58,10 @@ export function EditProjectModal({
     formdata.append("rating", rating.toString());
 
     if (startDate) {
-      formdata.append("createdAt", startDate.toISOString());
+      formdata.append("createdAt", fixedStartDate);
     }
     if (endDate) {
-      formdata.append("finishedAt", endDate.toISOString());
+      formdata.append("finishedAt", fixedEndDate);
     }
     if (image) {
       formdata.append("image", image);
@@ -76,7 +87,11 @@ export function EditProjectModal({
         }
         return res.json();
       })
-      .then((data) => console.log("Project Updated:", data))
+      .then((data) => {
+        console.log("Project Updated:", data);
+        onSuccess(); // Notify parent
+      })
+
       .catch((err) => console.error("POST error:", err));
   }
 
@@ -222,8 +237,6 @@ export function EditProjectModal({
               </div>
             </div>
             {/* TODO: create a popover component?*/}
-            {/* TODO: Also the date is wrong by one day */}
-            {/* TODO: The pictures that is being added is smallar */}
             {/* TODO: Remove the old picture*/}
             <div className="flex flex-row border-2 border-green-400">
               <div className="">
@@ -231,7 +244,7 @@ export function EditProjectModal({
                   <PopoverTrigger asChild>
                     <Button variant="outline">
                       {startDate
-                        ? startDate.toISOString().slice(0, 10)
+                        ? startDate.toLocaleDateString("sv-SE")
                         : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
@@ -251,7 +264,7 @@ export function EditProjectModal({
                   <PopoverTrigger asChild>
                     <Button variant="outline">
                       {endDate
-                        ? endDate.toISOString().slice(0, 10)
+                        ? endDate.toLocaleDateString("sv-SE")
                         : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
