@@ -1,13 +1,14 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Layout } from "./components/Layout";
+import { AddProject } from "./pages/AddProject";
+import { EditProject } from "./pages/EditProject";
 import { Home } from "./pages/Home";
 import { Library } from "./pages/Library";
-import { ProjectInfo } from "./pages/ProjectInfo";
-import { AddProject } from "./pages/AddProject";
-import { Layout } from "./components/Layout";
-import { Profile } from "./pages/Profile";
-import { EditProject } from "./pages/EditProject";
 import { LogIn } from "./pages/LogIn";
+import { Profile } from "./pages/Profile";
+import { ProjectInfo } from "./pages/ProjectInfo";
+import { Register } from "./pages/Register";
 import { TestPage } from "./pages/TestPage";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="profile/:id" element={<Profile />} />
           <Route path="editProject/:id" element={<EditProject />} />
           <Route path="logIn" element={<LogIn />} />
+          <Route path="register" element={<Register />} />
           <Route path="testPage" element={<TestPage />} />
         </Route>
       </Routes>

@@ -28,31 +28,60 @@ export function LogIn() {
     }
   };
 
+  const navigateToRegister = async () => {
+    navigate("/register");
+  };
+
   return (
-    <>
-      <div className="max-w-screen-lg mx-auto p-4">
-        <h1>Log in page</h1>
-        <div>
-          <Label>Username</Label>
+    <div className="pt-35 flex items-center justify-center bg-teal-50">
+      <div className="w-full max-w-xl bg-white p-8 rounded-xl shadow-lg">
+        <h1 className="text-2xl font-bold text-center text-teal-700 mb-6">
+          Log in
+        </h1>
+
+        <div className="mb-4">
+          <Label className="block text-sm font-medium text-gray-700 mb-1">
+            Username
+          </Label>
           <Input
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          ></Input>
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          />
         </div>
-        <div>
-          <Label>Password</Label>
+
+        <div className="mb-6">
+          <Label className="block text-sm font-medium text-gray-700 mb-1">
+            Password
+          </Label>
           <Input
-            placeholder="Username"
-            type="Password"
+            placeholder="Password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></Input>
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          />
         </div>
-        <div>
-          <Button onClick={handleLogin}>Log in</Button>
+
+        <Button
+          onClick={handleLogin}
+          className="w-full bg-teal-600 text-white py-2 rounded font-semibold hover:bg-teal-500 transition duration-200"
+        >
+          Log in
+        </Button>
+        <div className="pt-2">
+          <Label className="text-base font-medium text-gray-700">
+            Don't have an account?
+          </Label>
+          <p
+            className="font-medium text-gray-700 text-left underline underline-offset-2 cursor-pointer hover:text-teal-500"
+            onClick={navigateToRegister}
+          >
+            Click here to sign up
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

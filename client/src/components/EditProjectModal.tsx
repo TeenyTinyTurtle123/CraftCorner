@@ -75,8 +75,6 @@ export function EditProjectModal({
       formdata.append("pattern", "");
     }
 
-    console.log(formdata);
-
     fetch("https://localhost:44373/Project/EditProject", {
       method: "POST",
       body: formdata,
