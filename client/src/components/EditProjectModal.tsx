@@ -46,8 +46,9 @@ export function EditProjectModal({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const fixedEndDate = endDate ? getLocalDateString(endDate) : null;
     const fixedStartDate = getLocalDateString(startDate!);
-    const fixedEndDate = getLocalDateString(endDate!);
 
     const formdata = new FormData();
     formdata.append("id", id.toString());
@@ -57,10 +58,10 @@ export function EditProjectModal({
     formdata.append("notes", notes);
     formdata.append("rating", rating.toString());
 
-    if (startDate) {
+    if (fixedStartDate) {
       formdata.append("createdAt", fixedStartDate);
     }
-    if (endDate) {
+    if (fixedEndDate) {
       formdata.append("finishedAt", fixedEndDate);
     }
     if (image) {

@@ -121,15 +121,11 @@ public class ProjectController : ControllerBase
         databaseProject.Rating = dto.Rating;
         databaseProject.Status = dto.Status;
         databaseProject.Notes = dto.Notes;
+        databaseProject.FinishedAt = dto.FinishedAt?.ToUniversalTime();
         
         if (dto.CreatedAt != null)
         {
             databaseProject.CreatedAt = dto.CreatedAt.ToUniversalTime();
-        }
-
-        if (dto.FinishedAt != null)
-        {
-            databaseProject.FinishedAt = dto.FinishedAt?.ToUniversalTime();
         }
         
         // image upload
