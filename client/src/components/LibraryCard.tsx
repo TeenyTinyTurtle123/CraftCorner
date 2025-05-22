@@ -15,13 +15,10 @@ type LibraryCardProps = {
 export function LibraryCard({ project, refreshProject }: LibraryCardProps) {
   const [showImageModal, setShowImageModal] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  // const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   function handleEditSuccess() {
     setEditModalOpen(false);
     refreshProject();
-    // setShowSuccessMessage(true);
-    // setTimeout(() => setShowSuccessMessage(false), 3000); // Auto-hide after 3s
   }
 
   return (
@@ -33,12 +30,6 @@ export function LibraryCard({ project, refreshProject }: LibraryCardProps) {
         <CardHeader className="p-0">
           <CardTitle className="flex flex-row text-left text-xl font-semibold">
             {project.title}
-            {/* {showSuccessMessage && (
-              <div className="flex items-center gap-1 text-green-600 font-medium ml-4">
-                <span>Project updated! </span>
-                <PartyPopper />
-              </div>
-            )} */}
           </CardTitle>
         </CardHeader>
 

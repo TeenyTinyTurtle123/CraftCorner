@@ -58,6 +58,17 @@ export function Profile() {
     return mostUsed;
   }
 
+  function refreshProjectById(id: number) {
+    fetch(`https://localhost:44373/Project/GetById?id=${id}`)
+      .then((res) => res.json())
+      .then((updated) => {
+        setProject((prev) =>
+          prev.map((p) => (p.id === updated.id ? updated : p))
+        );
+      })
+      .catch((err) => console.error("Failed to refresh project:", err));
+  }
+
   const mostUsedType = getMostUsedProjectType(project);
 
   //TODO: sm:flex-row this seems to be how to make it to mobile!! the sm: look into it
@@ -82,8 +93,8 @@ export function Profile() {
           </div>
 
           <div className="mr-10">
-            <Button className="bg-teal-600 text-lg font-semibold hover:bg-teal-400">
-              Create new <BadgePlus />
+            <Button className="bg-teal-600 text-lg font-semibold hover:bg-teal-400 ">
+              Create new <BadgePlus className="!size-5" />
             </Button>
           </div>
         </div>
@@ -114,7 +125,11 @@ export function Profile() {
           </div>
           <div className="grid grid-cols-2 gap-2">
             {wipProjects.map((p) => (
-              <ProfileWIPCard key={p.id} project={p} />
+              <ProfileWIPCard
+                key={p.id}
+                project={p}
+                refreshProject={() => refreshProjectById(p.id)}
+              />
             ))}
           </div>
         </div>

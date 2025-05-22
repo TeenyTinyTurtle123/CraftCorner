@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export function Library() {
   const [allProject, setAllProject] = useState<Project[]>([]);
   const [searchInput, setSearchInput] = useState("");
+
   const { user } = useUser();
 
   useEffect(() => {
