@@ -288,7 +288,7 @@ export function EditProjectModal({
                   <Label>Rating</Label>
                   <Input
                     type="number"
-                    min={1}
+                    min={0}
                     max={5}
                     required
                     className="w-15"

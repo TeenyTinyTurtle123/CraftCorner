@@ -73,7 +73,7 @@ public class ProjectController : ControllerBase
         else
         {
             // This doesn't actually work
-            imageName = dto.ImageName ?? "DefaultProjectImage.jpg";
+            imageName = dto.ImageName ?? "Default.png";
         }
         
         if (dto.Pattern != null)
