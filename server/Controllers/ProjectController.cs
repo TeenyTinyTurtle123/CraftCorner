@@ -134,6 +134,17 @@ public class ProjectController : ControllerBase
         // image upload
         if (dto.Image != null && dto.Image.Length > 0)
         {
+            // Only delete old image if it's not the default one
+            if (!string.IsNullOrEmpty(databaseProject.ImageURL) && databaseProject.ImageURL != "Default.png")
+            {
+                var oldImagePath = Path.Combine("wwwroot/images", databaseProject.ImageURL);
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
+            // Save new image
             var imageFileName = Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
             var imagePath = Path.Combine("wwwroot/images", imageFileName);
 
@@ -142,7 +153,7 @@ public class ProjectController : ControllerBase
                 await dto.Image.CopyToAsync(stream);
             }
 
-            databaseProject.ImageURL = imageFileName; // Save just the filename
+            databaseProject.ImageURL = imageFileName;
         }
 
         // pattern upload
