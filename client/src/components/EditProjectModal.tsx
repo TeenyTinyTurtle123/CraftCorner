@@ -1,10 +1,20 @@
 import { Project, ProjectType, Status } from "@/types/project";
 import { Label } from "@radix-ui/react-label";
+import { ArrowBigDownDash, Star } from "lucide-react";
 import React, { useState } from "react";
+import { ColorBadge } from "./ColorBadge";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Textarea } from "./ui/textarea";
 
 type EditProjectModalProps = {
   project: Project;
@@ -101,9 +111,10 @@ export function EditProjectModal({
       <form onSubmit={handleSubmit}>
         <div className="fixed inset-0 bg-stone-700/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-5xl">
-            <div className="flex">
-              <div className="flex flex-col border-2 border-sky-400">
-                <div className="mt-3">
+            <div className="flex flex-row mb-3">
+              <div className="flex flex-col mr-3">
+                <div className="mt-3 flex flex-col items-center justify-center pb-3">
+                  <Label className="font-semibold text-lg">Add Picture</Label>
                   <img
                     src={
                       imagePreview
@@ -111,13 +122,14 @@ export function EditProjectModal({
                         : `https://localhost:44373/images/${project.imageURL}`
                     }
                     alt="Project"
-                    className="w-28 h-40 object-cover rounded-lg border-2 border-teal-600 cursor-pointer"
+                    className="w-42 h-54 object-cover rounded-lg border-3 border-teal-600"
                   />
                 </div>
                 <Input
                   id="image"
                   type="file"
                   accept="image/*" // this is for restricting it to images. Could be good to know
+                  className="hover:bg-teal-100 cursor-pointer"
                   onChange={(e) => {
                     if (e.target.files && e.target.files.length > 0) {
                       const file = e.target.files[0];
@@ -130,7 +142,7 @@ export function EditProjectModal({
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="mt-2"
+                  className="mt-2 mb-2 hover:bg-teal-100 cursor-pointer "
                   onClick={() => {
                     setImage(null);
                     setImagePreview(null);
@@ -144,15 +156,22 @@ export function EditProjectModal({
                       href={`https://localhost:44373/patterns/${project.patternURL}`}
                       download
                     >
-                      <Button type="button" size="sm" className="mb-2">
-                        ⬇️ Download Pattern
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mb-2 border-2S hover:border-teal-600"
+                      >
+                        <ArrowBigDownDash /> Show Pattern
                       </Button>
                     </a>
                     <div>
-                      <Label htmlFor="image">Change pattern</Label>
+                      <Label className="font-semibold text-lg">
+                        Add/Change pattern
+                      </Label>
                       <Input
                         id="pattern"
                         type="file"
+                        className=" hover:bg-teal-100 cursor-pointer"
                         onChange={(e) => {
                           if (e.target.files && e.target.files.length > 0) {
                             const file = e.target.files[0];
@@ -179,114 +198,187 @@ export function EditProjectModal({
                 )}
               </div>
 
-              <div className="border-2 border-sky-800">
-                <div className="flex flex-row">
+              <div className="mr-3">
+                <div className="flex items-center space-x-2 my-2">
                   <Label>Title</Label>
                   <Input
                     value={title}
+                    className="w-64"
                     onChange={(e) => setTitle(e.target.value)}
                   ></Input>
                 </div>
-                <div>
-                  <Label>Title</Label>
-                  <select
-                    value={type}
-                    onChange={(e) => setType(e.target.value as ProjectType)}
-                    required
-                  >
-                    <option value="" disabled></option>
-                    <option value="Other">Other</option>
-                    <option value="Crochet">Crochet</option>
-                    <option value="Knit">Knit</option>
-                    <option value="CrossStitch">CrossStitch</option>
-                    <option value="Embroidery">Embroidery</option>
-                  </select>
+                {/* TODO: create a Dropdown component?*/}
+                <div className="flex items-center space-x-2 my-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Button
+                        variant="outline"
+                        className="border-2S hover:border-teal-600"
+                      >
+                        Choose type
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuRadioGroup
+                        value={type}
+                        onValueChange={(e) => setType(e as ProjectType)}
+                      >
+                        <DropdownMenuRadioItem value="Other">
+                          Other
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Crochet">
+                          Crochet
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Knit">
+                          Knit
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="CrossStitch">
+                          CrossStitch
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Embroidery">
+                          Embroidery
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <ColorBadge children={type} />
                 </div>
-                <div>
-                  <Label>Status:</Label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as Status)}
-                    required
-                  >
-                    <option value="" disabled></option>
-                    <option value="WIP">WIP</option>
-                    <option value="Finished">Finished</option>
-                  </select>
+                <div className="flex items-center space-x-2 my-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Button
+                        variant="outline"
+                        className="border-2S hover:border-teal-600"
+                      >
+                        Choose state
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuRadioGroup
+                        value={status}
+                        onValueChange={(e) => setStatus(e as Status)}
+                      >
+                        <DropdownMenuRadioItem value="WIP">
+                          WIP
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Finished">
+                          Finished
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Deleted">
+                          Deleted
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <ColorBadge children={status} />
                 </div>
-                <div>
+                <div className="flex items-center space-x-2 my-2">
                   <Label>Rating</Label>
                   <Input
                     type="number"
                     min={1}
                     max={5}
                     required
+                    className="w-15"
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
                   ></Input>
+                  {Array.from({ length: rating }, (_, i) => (
+                    <span key={i} className="text-yellow-400">
+                      <Star />
+                    </span>
+                  ))}
                 </div>
               </div>
-              <div className="border-2 border-sky-300">
+              <div className=" flex-grow">
                 <label>Notes</label>
-                <Input
-                  type="text"
+                <Textarea
                   value={notes}
+                  rows={7}
                   onChange={(e) => setNotes(e.target.value)}
-                ></Input>
+                ></Textarea>
               </div>
             </div>
             {/* TODO: create a popover component?*/}
             {/* TODO: Remove the old picture*/}
-            <div className="flex flex-row border-2 border-green-400">
-              <div className="">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline">
-                      {startDate
-                        ? startDate.toLocaleDateString("sv-SE")
-                        : "Pick a date"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <Calendar
-                      mode="single"
-                      selected={startDate}
-                      onSelect={setStartDate}
-                      className="rounded-md border"
-                    />
-                  </PopoverContent>
-                </Popover>
-                <Button type="button" onClick={() => setStartDate(new Date())}>
-                  Set to today
-                </Button>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline">
-                      {endDate
-                        ? endDate.toLocaleDateString("sv-SE")
-                        : "Pick a date"}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <Calendar
-                      mode="single"
-                      selected={endDate}
-                      onSelect={setEndDate}
-                      className="rounded-md border"
-                    />
-                  </PopoverContent>
-                </Popover>
-                <Button type="button" onClick={() => setEndDate(new Date())}>
-                  Set to today
-                </Button>
+            <div className="flex flex-row items-center p-1">
+              <div className="flex gap-4 items-center justify-around flex-grow">
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="hover:border-teal-400 cursor-pointer w-35"
+                      >
+                        {startDate
+                          ? startDate.toLocaleDateString("sv-SE")
+                          : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <Calendar
+                        mode="single"
+                        selected={startDate}
+                        onSelect={setStartDate}
+                        className="rounded-md border"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <Button
+                    className="bg-teal-400 font-semibold hover:bg-teal-800"
+                    type="button"
+                    onClick={() => setStartDate(new Date())}
+                  >
+                    Set to today
+                  </Button>
+                </div>
+                <div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="hover:border-teal-400 cursor-pointer w-35"
+                      >
+                        {endDate
+                          ? endDate.toLocaleDateString("sv-SE")
+                          : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <Calendar
+                        mode="single"
+                        selected={endDate}
+                        onSelect={setEndDate}
+                        className="rounded-md border"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <Button
+                    className="bg-teal-400 font-semibold hover:bg-teal-800"
+                    type="button"
+                    onClick={() => setEndDate(new Date())}
+                  >
+                    Set to today
+                  </Button>
+                </div>
               </div>
-              <div className="mt-4 text-right ml-auto">
-                <Button type="button" onClick={onClose}>
+              <div className="ml-auto">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="font-semibold hover:border-teal-400"
+                  onClick={onClose}
+                >
                   Close
                 </Button>
               </div>
             </div>
-            <Button type="submit">Save</Button>
+            <Button
+              type="submit"
+              className="bg-teal-400 font-semibold w-50 hover:bg-teal-800"
+            >
+              Save
+            </Button>
           </div>
         </div>
       </form>

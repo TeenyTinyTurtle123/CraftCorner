@@ -1,5 +1,14 @@
 import { ColorBadge } from "@/components/ColorBadge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,6 +34,7 @@ export function TestPage() {
   const [projectStatus, setProjectStatus] = useState<Project[]>([]);
   const [statusLabel, setStatusLabel] = useState("WIP");
   const [projectType, setProjectType] = useState<Project[]>([]);
+  const [position, setPosition] = useState("bottom");
 
   // just for testing
   const { user } = useUser();
@@ -71,6 +81,20 @@ export function TestPage() {
       <ColorBadge children="WIP" />
       <ColorBadge children="Finished" />
       <ColorBadge children="Deleted" />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">Open</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+          <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+            <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <div>
         <h3>
           The logged in user Id: {user?.id} Username: {user?.username}
