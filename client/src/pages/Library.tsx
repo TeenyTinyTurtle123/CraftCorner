@@ -7,6 +7,12 @@ import { useEffect, useState } from "react";
 export function Library() {
   const [allProject, setAllProject] = useState<Project[]>([]);
   const [searchInput, setSearchInput] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"All" | "WIP" | "Finished">(
+    "All"
+  );
+  const [sortOrder, setSortOrder] = useState<"date" | "highest" | "lowest">(
+    "date"
+  );
 
   const { user } = useUser();
 
@@ -31,9 +37,18 @@ export function Library() {
     (p) => p.status === "Finished"
   ).length;
 
-  const filteredProjects = allProject.filter((p) =>
-    p.title.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())
-  );
+  const filteredProjects = allProject
+    .filter((p) => p.title.toLowerCase().includes(searchInput.toLowerCase()))
+    .filter((p) => p.status !== "Deleted")
+    .filter((p) => {
+      if (statusFilter === "All") return true;
+      return p.status === statusFilter;
+    })
+    .sort((a, b) => {
+      if (sortOrder === "highest") return b.rating - a.rating;
+      if (sortOrder === "lowest") return a.rating - b.rating;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // default date sort
+    });
 
   function refreshProjectById(id: number) {
     fetch(`https://localhost:44373/Project/GetById?id=${id}`)
@@ -44,6 +59,11 @@ export function Library() {
         );
       })
       .catch((err) => console.error("Failed to refresh project:", err));
+  }
+
+  function reset() {
+    setStatusFilter("All");
+    setSortOrder("date");
   }
 
   return (
@@ -65,13 +85,34 @@ export function Library() {
         <div className="flex flex-row gap-2">
           <div className="w-46 flex-shrink-0 p-4 bg-teal-50 rounded-md shadow-sm text-sm space-y-4">
             <div className="">
-              <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
+              <p
+                className={`font-semibold text-lg cursor-pointer ${
+                  statusFilter === "All"
+                    ? "text-teal-600 underline"
+                    : "hover:text-teal-600"
+                }`}
+                onClick={() => setStatusFilter("All")}
+              >
                 All ({allProject.length})
               </p>
-              <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
+              <p
+                className={`font-semibold text-lg cursor-pointer ${
+                  statusFilter === "WIP"
+                    ? "text-teal-600 underline"
+                    : "hover:text-teal-600"
+                }`}
+                onClick={() => setStatusFilter("WIP")}
+              >
                 WIP ({wipCount})
               </p>
-              <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
+              <p
+                className={`font-semibold text-lg cursor-pointer ${
+                  statusFilter === "Finished"
+                    ? "text-teal-600 underline"
+                    : "hover:text-teal-600"
+                }`}
+                onClick={() => setStatusFilter("Finished")}
+              >
                 Finished ({finishedCount})
               </p>
             </div>
@@ -84,11 +125,32 @@ export function Library() {
             </div>
             <hr></hr>
             <div className="pb-3 pt-3">
-              <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
+              <p
+                className={`font-semibold text-lg cursor-pointer ${
+                  sortOrder === "highest"
+                    ? "text-teal-600 underline"
+                    : "hover:text-teal-600"
+                }`}
+                onClick={() => setSortOrder("highest")}
+              >
                 Highest rated first
               </p>
-              <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
-                lowest rated first
+              <p
+                className={`font-semibold text-lg cursor-pointer mb-3 ${
+                  sortOrder === "lowest"
+                    ? "text-teal-600 underline"
+                    : "hover:text-teal-600"
+                }`}
+                onClick={() => setSortOrder("lowest")}
+              >
+                Lowest rated first
+              </p>
+              <hr></hr>
+              <p
+                className="hover:text-teal-600 font-semibold text-lg cursor-pointer"
+                onClick={reset}
+              >
+                Reset
               </p>
             </div>
           </div>
