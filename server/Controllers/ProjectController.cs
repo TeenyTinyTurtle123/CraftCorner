@@ -8,6 +8,8 @@ namespace server.Controllers;
 [Route("[controller]")]
 public class ProjectController : ControllerBase
 {
+    // FromBody is JSON, fromForm is something else. fromForm is used with pictures and files
+    // FormData cannot be bound to [FromBody] in ASP.NET. It must be [FromForm].
     private readonly AppDbContext _context;
 
     public ProjectController(AppDbContext context)
@@ -94,7 +96,8 @@ public class ProjectController : ControllerBase
             Title = dto.Title,
             ProjectType = dto.Type,
             Rating = dto.Rating,
-            CreatedAt = DateTime.UtcNow,
+            CreatedAt = dto.CreatedAt.ToUniversalTime(),
+            FinishedAt = dto.FinishedAt?.ToUniversalTime(),
             Status = dto.Status,
             Notes = dto.Notes,
             PatternURL = pattern,

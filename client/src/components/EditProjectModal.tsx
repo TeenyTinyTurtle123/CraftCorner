@@ -196,6 +196,18 @@ export function EditProjectModal({
                     />
                   </div>
                 )}
+                {/* TODO: see if this works */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 mb-2 hover:bg-teal-100 cursor-pointer "
+                  onClick={() => {
+                    setPattern(null);
+                  }}
+                >
+                  Remove Pattern
+                </Button>
               </div>
 
               <div className="mr-3">

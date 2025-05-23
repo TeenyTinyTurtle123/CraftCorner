@@ -1,4 +1,5 @@
 import { ColorBadge } from "@/components/ColorBadge";
+import { CreateProjectModal } from "@/components/CreateProjectModal";
 import { ProfileWIPCard } from "@/components/ProfileWIPCard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,8 +10,9 @@ import { useEffect, useState } from "react";
 import DefaultProfile from "../assets/DefaultProfile.png";
 
 export function Profile() {
-  const [project, setProject] = useState<Project[]>([]);
   const { user } = useUser();
+  const [project, setProject] = useState<Project[]>([]);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -69,6 +71,12 @@ export function Profile() {
       .catch((err) => console.error("Failed to refresh project:", err));
   }
 
+  function handleCreateSuccess() {
+    setCreateModalOpen(false);
+    window.location.reload();
+    //TODO:Add an alert
+  }
+
   const mostUsedType = getMostUsedProjectType(project);
 
   //TODO: sm:flex-row this seems to be how to make it to mobile!! the sm: look into it
@@ -93,9 +101,17 @@ export function Profile() {
           </div>
 
           <div className="mr-10">
-            <Button className="bg-teal-600 text-lg font-semibold hover:bg-teal-400 ">
+            <Button
+              className="bg-teal-600 text-lg font-semibold hover:bg-teal-400"
+              onClick={() => setCreateModalOpen(true)}
+            >
               Create new <BadgePlus className="!size-5" />
             </Button>
+            <CreateProjectModal
+              open={createModalOpen}
+              onClose={() => setCreateModalOpen(false)}
+              onSuccess={handleCreateSuccess}
+            />
           </div>
         </div>
 
