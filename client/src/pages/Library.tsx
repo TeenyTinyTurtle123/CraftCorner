@@ -71,7 +71,7 @@ export function Library() {
       <div className="max-w-screen-lg mx-auto p-3">
         {/* Title and search function */}
         <div className="flex items-center flex-row mb-6 md:border-b md:border-teal-800">
-          <h1 className="hidden md:block w-54 text-teal-300 text-3xl font-bold pr-3 pb-4 pt-4">
+          <h1 className="hidden md:block w-54 text-teal-500 text-3xl font-bold pr-3 pb-4 pt-4">
             My Projects
           </h1>
 
