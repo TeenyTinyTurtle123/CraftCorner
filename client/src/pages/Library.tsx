@@ -70,10 +70,11 @@ export function Library() {
     <>
       <div className="max-w-screen-lg mx-auto p-3">
         {/* Title and search function */}
-        <div className="flex items-center flex-row mb-6 border-b border-teal-800">
-          <h1 className="w-54 text-teal-300 text-3xl font-bold pr-3 pb-4 pt-4 ">
+        <div className="flex items-center flex-row mb-6 md:border-b md:border-teal-800">
+          <h1 className="hidden md:block w-54 text-teal-300 text-3xl font-bold pr-3 pb-4 pt-4">
             My Projects
           </h1>
+
           <Input
             placeholder="Search title"
             value={searchInput}
@@ -82,9 +83,9 @@ export function Library() {
         </div>
 
         {/* options and projects wrapper */}
-        <div className="flex flex-row gap-2">
-          <div className="w-46 flex-shrink-0 p-4 bg-teal-50 rounded-md shadow-sm text-sm space-y-4">
-            <div className="">
+        <div className="flex flex-col md:flex-row gap-2">
+          <div className="flex flex-row md:flex-col gap-3 w-46 flex-shrink-0 p-4 bg-teal-50 rounded-md shadow-sm text-sm space-y-4">
+            <div className="flex flex-row md:flex-col gap-3">
               <p
                 className={`font-semibold text-lg cursor-pointer ${
                   statusFilter === "All"
@@ -124,7 +125,7 @@ export function Library() {
               </p>
             </div>
             <hr></hr>
-            <div className="pb-3 pt-3">
+            <div className="flex flex-row md:flex-col md:pb-3 md:pt-3 gap-3">
               <p
                 className={`font-semibold text-lg cursor-pointer ${
                   sortOrder === "highest"
