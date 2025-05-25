@@ -117,6 +117,7 @@ export function LibraryCard({ project, refreshProject }: LibraryCardProps) {
           </div>
 
           {/* Edit/Delete Actions */}
+          {/* TODO: Delete button need to be implemented */}
           <div className="flex flex-col justify-end gap-2 ml-auto">
             <Button
               variant="outline"

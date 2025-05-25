@@ -18,7 +18,7 @@ export function Library() {
 
   useEffect(() => {
     if (!user?.id) return;
-
+    // https://localhost:44373 = the 's' in https is important!!
     fetch(
       `https://localhost:44373/Project/GetProjectsByUserId?userId=${user.id}`
     )
@@ -31,6 +31,8 @@ export function Library() {
       .then((json: Project[]) => setAllProject(json))
       .catch((err) => console.error("Fetch error:", err));
   }, [user?.id]);
+  //[] this is a dependency array, it will run when the component first mounts and again whenever the value inside it changes
+  // this ensures the fetch only runs once per new project id
 
   const wipCount = allProject.filter((p) => p.status === "WIP").length;
   const finishedCount = allProject.filter(
@@ -119,7 +121,7 @@ export function Library() {
             </div>
             <hr></hr>
             <div className="pb-3 pt-3">
-              {/* Add a dropdown with the options like crochet, knit ... */}
+              {/*TODO: Add a dropdown with the options like crochet, knit ... */}
               <p className="hover:text-teal-600 font-semibold text-lg cursor-pointer">
                 Type
               </p>

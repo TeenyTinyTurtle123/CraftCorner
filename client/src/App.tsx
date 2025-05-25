@@ -1,13 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Layout } from "./components/Layout";
-import { AddProject } from "./pages/AddProject";
-import { EditProject } from "./pages/EditProject";
 import { Home } from "./pages/Home";
 import { Library } from "./pages/Library";
 import { LogIn } from "./pages/LogIn";
 import { Profile } from "./pages/Profile";
-import { ProjectInfo } from "./pages/ProjectInfo";
 import { Register } from "./pages/Register";
 import { TestPage } from "./pages/TestPage";
 
@@ -18,10 +15,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="library/:id" element={<Library />} />
-          <Route path="projectInfo/:id" element={<ProjectInfo />} />
-          <Route path="addProject" element={<AddProject />} />
           <Route path="profile/:id" element={<Profile />} />
-          <Route path="editProject/:id" element={<EditProject />} />
           <Route path="logIn" element={<LogIn />} />
           <Route path="register" element={<Register />} />
           <Route path="testPage" element={<TestPage />} />

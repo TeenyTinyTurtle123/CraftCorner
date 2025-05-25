@@ -28,12 +28,13 @@ export function Header() {
         >
           CrossStitch
         </Link>
-        <Link
+        {/* TODO: Link to the test page  */}
+        {/* <Link
           className="hover:text-teal-500 font-semibold text-lg"
           to="/testPage"
         >
           TestPage
-        </Link>
+        </Link> */}
       </nav>
 
       {/* Right side: Dropdown or login link */}

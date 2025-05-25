@@ -79,8 +79,6 @@ export function Profile() {
 
   const mostUsedType = getMostUsedProjectType(project);
 
-  //TODO: sm:flex-row this seems to be how to make it to mobile!! the sm: look into it
-
   return (
     <>
       {/* profile picture and information */}

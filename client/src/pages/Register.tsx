@@ -47,7 +47,7 @@ export function Register() {
   };
 
   return (
-    <form>
+    <form onSubmit={handleRegister}>
       <div className="pt-35 flex items-center justify-center bg-teal-50">
         <div className="w-full max-w-xl bg-white p-8 rounded-xl shadow-lg">
           <h1 className="text-2xl font-bold text-center text-teal-700 mb-6">
@@ -93,9 +93,8 @@ export function Register() {
           </div>
 
           <Button
-            // onClick={handleLogin}
             className="w-full bg-teal-600 text-white py-2 rounded font-semibold hover:bg-teal-500 transition duration-200"
-            onClick={() => handleRegister}
+            type="submit"
           >
             Create account
           </Button>
