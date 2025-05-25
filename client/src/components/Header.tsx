@@ -1,8 +1,8 @@
+import { useUser } from "@/Context";
+import { Label } from "@radix-ui/react-label";
 import { Link } from "react-router-dom";
 import logo from "../assets/Logotransparant.png";
 import { Dropdown } from "./Dropdown";
-import { Label } from "@radix-ui/react-label";
-import { useUser } from "@/Context";
 
 export function Header() {
   const { user } = useUser();
@@ -46,7 +46,7 @@ export function Header() {
       <div className="z-10 flex items-center gap-2">
         {user ? (
           <>
-            <Label>Welcome {user.username}</Label>
+            <Label className="text-lg">Welcome {user.username}!</Label>
             <Dropdown />
           </>
         ) : (

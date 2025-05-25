@@ -85,13 +85,13 @@ export function Profile() {
     <>
       {/* profile picture and information */}
       <div className="max-w-screen-lg mx-auto p-4">
-        <div className="flex justify-between items-center bg-teal-50 rounded-md mb-3 p-4">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-center bg-teal-50 rounded-md mb-3 p-4 gap-4">
           <img
             className="w-50 h-50 rounded-full border-2 object-cover"
             src={DefaultProfile}
           />
 
-          <div className="flex-1 ml-4 self-start">
+          <div className="flex-1 ml-4 md:self-start">
             <p className="border-b text-left font-semibold text-xl max-w-80">
               {user?.username}
             </p>
@@ -100,7 +100,7 @@ export function Profile() {
             </p>
           </div>
 
-          <div className="mr-10">
+          <div className="md:mr-10">
             <Button
               className="bg-teal-600 text-lg font-semibold hover:bg-teal-400"
               onClick={() => setCreateModalOpen(true)}
@@ -139,7 +139,7 @@ export function Profile() {
               {user?.username.toLocaleUpperCase()} IS CURRENTLY WORKING ON
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-2">
             {wipProjects.map((p) => (
               <ProfileWIPCard
                 key={p.id}

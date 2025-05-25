@@ -14,7 +14,7 @@ export function Home() {
 
   return (
     <>
-      <div className="max-w-screen-lg mx-auto">
+      <div className="max-w-screen-lg mx-auto pt-2">
         <div className="flex flex-col items-center ">
           <div className="relative w-full max-w-5xl">
             <img
