@@ -17,12 +17,6 @@ public class ProjectController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("GetProjects")]
-    public ActionResult GetProjects()
-    {
-        return Ok(MockData.MockProjectsList);
-    }
-
     // Important to 'Name' each Http request. It doesn't listen to just the function name
     [HttpGet("GetById")]
     public ActionResult GetById(int id)
